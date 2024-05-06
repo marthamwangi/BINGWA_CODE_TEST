@@ -1,12 +1,14 @@
 import { Component, inject } from '@angular/core';
-import { RefresherCustomEvent } from '@ionic/angular';
+import { IonicModule, RefresherCustomEvent } from '@ionic/angular';
 
 import { DataService, Message } from '../services/data.service';
 
 @Component({
-  selector: '-home',
+  selector: 'bt-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: true,
+  imports: [IonicModule],
 })
 export class HomePage {
   private data = inject(DataService);
