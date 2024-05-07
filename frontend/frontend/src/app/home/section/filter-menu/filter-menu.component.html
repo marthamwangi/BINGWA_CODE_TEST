@@ -1,0 +1,49 @@
+<ion-menu contentId="main-content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Filter By</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+        <div class="filter-cards">
+            <ion-card class="filter-by-service">
+                <ion-card-header>
+                    <ion-card-title>Service Name List</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item>
+                            <ion-label>House Cleaning</ion-label>
+                            <ion-checkbox> </ion-checkbox>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>Dish Washing </ion-label>
+                            <ion-checkbox> </ion-checkbox>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+            <ion-card class="filter-by-distance">
+                <ion-card-header>
+                    <ion-card-title>Distance (km)</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-range aria-label="Range with knob events"
+                        (ionKnobMoveStart)="onDistanceIonKnobMoveStart($event)"
+                        (ionKnobMoveEnd)="onDistanceIonKnobMoveEnd($event)" [dualKnobs]="true"
+                        [value]="{ lower: 0, upper: 100 }"></ion-range>
+                </ion-card-content>
+            </ion-card>
+            <ion-card class="filter-by-price">
+                <ion-card-header>
+                    <ion-card-title>Price in KES</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-range aria-label="Range with knob events" (ionKnobMoveStart)="onPriceIonKnobMoveStart($event)"
+                        (ionKnobMoveEnd)="onPriceIonKnobMoveEnd($event)" [dualKnobs]="true"
+                        [value]="{ lower: 0, upper: 100 }"></ion-range> </ion-card-content>
+            </ion-card>
+        </div>
+        <ion-button expand="block">Apply(4 Results)</ion-button>
+    </ion-content>
+</ion-menu>
