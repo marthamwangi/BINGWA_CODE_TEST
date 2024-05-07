@@ -1,4 +1,38 @@
-ion-card {
-  max-width: 575.98px;
-  margin-inline: auto;
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.mb-12 {
+  margin-bottom: 12px;
+}
+main {
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  ion-card {
+    max-width: 25%;
+    ion-card-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .per-servicel {
+    font-family: 'Work Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    text-transform: capitalize;
+  }
+  ion-button {
+    text-transform: capitalize;
+  }
+  .rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
 }

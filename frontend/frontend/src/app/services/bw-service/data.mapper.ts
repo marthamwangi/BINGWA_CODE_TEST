@@ -11,3 +11,15 @@ export class DeserializeBWServices {
     }));
   }
 }
+
+export class DeserializeOneBWService {
+  deserialize(entity: BwServiceData): IBwService {
+    return {
+      id: entity.id,
+      serviceName: entity.service_name,
+      serviceDescription: entity.service_description,
+      serviceProvider: entity.service_provider,
+      price: entity.price,
+    };
+  }
+}

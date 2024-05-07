@@ -1,11 +1,23 @@
-<ion-card *ngFor="let service of bwServices">
-  <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
-  <ion-card-header>
-    <ion-card-title>{{service.serviceName}}</ion-card-title>
-    <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-  </ion-card-header>
+<main>
+  <ion-searchbar placeholder="Cleaning services, 1901 Thornridge Cir. Westlands..."></ion-searchbar>
 
-  <ion-card-content>
-    Here's a small text description for the card content. Nothing more, nothing less.
-  </ion-card-content>
-</ion-card>
+  <ion-card *ngFor="let service of bwServices">
+    <img loading="lazy" alt="..." src="assets/images/Image.png" />
+    <ion-card-header>
+      <ion-card-title>{{service.serviceName}}
+        <ion-button>Book
+          <ion-icon slot="end" [src]=bookicon></ion-icon>
+        </ion-button>
+      </ion-card-title>
+      <ion-card-subtitle>{{service.price | currency:'KES'}} <span class="per-servicel">/ Per
+          Service</span></ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="mb-12 "> {{service.serviceDescription}} </div>
+      <div class="rating">
+        <div><img *ngFor="let rate of [1,2,3,4,5,6]" src="assets/icon/solar--star-circle-bold-duotone.svg" alt=""></div>
+        <div>4.3</div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</main>

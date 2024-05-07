@@ -13,3 +13,15 @@ export interface BwServiceData {
   service_provider: string;
   price: string;
 }
+
+export interface IProximity {
+  long: number;
+  lat: number;
+  minDistance: number;
+  maxDistance: number;
+}
+
+export interface IPriceRange {
+  maxPrice: number;
+  minPrice: number;
+}

@@ -8,15 +8,20 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/frontend/frontend",
         "index": "frontend/frontend/src/index.html",
         "main": "frontend/frontend/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "frontend/frontend/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
+
           "frontend/frontend/src/assets",
           {
             "glob": "**/*.svg",
@@ -97,7 +102,7 @@
         },
         "development": {
           "buildTarget": "frontend:build:development",
-          "proxyConfig":"frontend/frontend/src/proxy.conf.json"
+          "proxyConfig": "frontend/frontend/src/proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"
@@ -113,7 +118,9 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
       "options": {
         "jestConfig": "frontend/frontend/jest.config.ts"
       }
