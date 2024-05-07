@@ -7,3 +7,32 @@
 ## Ionic
 
 ## Nest
+
+### Mongo
+
+#### service_name: Name of the service (lowercase with underscores)
+
+#### service_description: Brief description of the service
+
+#### service_id: Unique identifier for the service (1 for house cleaning, 2 for dish washing)
+
+#### service_provider_id: Can be used to store the ID of the service provider (left null for now)
+
+#### price: Price of the service (replace with your desired price)
+
+    [
+    {
+        "service_name": "house_cleaning_service",
+        "service_description": "Professional cleaning of your home",
+        "service_id": 1,
+        "service_provider_id": null,  // Can be filled with actual provider ID later
+        "price": 50.00  // Replace with your desired price
+    },
+    {
+        "service_name": "dish_washing_service",
+        "service_description": "Taking care of your dirty dishes",
+        "service_id": 2,
+        "service_provider_id": null,  // Can be filled with actual provider ID later
+        "price": 10.00  // Replace with your desired price
+    }
+    ]
