@@ -7,7 +7,7 @@ export interface IBwService {
 }
 
 export interface BwServiceData {
-  id: string;
+  _id: string;
   service_name: string;
   service_description: string;
   service_provider: string;

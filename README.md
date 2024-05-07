@@ -6,6 +6,9 @@
 
 ## Ionic
 
+@Generate component
+nx g @nx/angular:component component-name --directory=frontend/frontend/src/app/component-name --standalone --prefix=prefix
+
 ## Nest
 
 ### Mongo
