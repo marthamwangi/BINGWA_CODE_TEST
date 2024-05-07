@@ -9,6 +9,11 @@ export interface IProximity {
   minDistance: number;
   maxDistance: number;
 }
+
+export interface IPriceRange {
+  maxPrice: number;
+  minPrice: number;
+}
 @Injectable()
 export class BingwaServicesService {
   constructor(
@@ -40,6 +45,21 @@ export class BingwaServicesService {
    */
 
   async findProximity(proximity: IProximity) {
+    return this.bwServiceModel.find({
+      location: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [proximity.long, proximity.lat],
+          },
+          $minDistance: proximity.minDistance,
+          $maxDistance: proximity.maxDistance,
+        },
+      },
+    });
+  }
+
+  async filterAll(proximity: IProximity, price: IPriceRange, service: string) {
     return this.bwServiceModel.find({
       location: {
         $near: {
