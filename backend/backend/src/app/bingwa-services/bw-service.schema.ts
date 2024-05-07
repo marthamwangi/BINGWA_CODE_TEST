@@ -15,11 +15,6 @@ export class BingwaService {
   service_provider_id: BingwaProvider;
   @Prop()
   price: string;
-  @Prop({ type: Object })
-  location: {
-    type: string;
-    coordinates: [number, number];
-  };
 }
 
 export const BingwaServiceSchema = SchemaFactory.createForClass(BingwaService);

@@ -15,6 +15,11 @@ export class BingwaProvider {
   phone: string;
   @Prop()
   profile: string;
+  @Prop({ type: Object })
+  location: {
+    type: string;
+    coordinates: [number, number];
+  };
 }
 export const BingwaProviderSchema =
   SchemaFactory.createForClass(BingwaProvider);
