@@ -3,6 +3,8 @@ import { IonicModule } from '@ionic/angular';
 import { IBwService } from '../../../services/bw-service/data.model';
 import { NgFor } from '@angular/common';
 import { BingwaService } from '../../../services/bw-service/data.service';
+import { BingwaServiceType } from '../../../services/bw-service-types/data.service';
+import { IBwServiceType } from '../../../services/bw-service-types/data.model';
 
 @Component({
   selector: 'bw-filter-menu',
@@ -12,15 +14,27 @@ import { BingwaService } from '../../../services/bw-service/data.service';
   styleUrl: './filter-menu.component.css',
 })
 export class FilterMenuComponent implements OnInit {
-  #bwServiceReq = inject(BingwaService);
-  bwServices: Array<IBwService> = [];
   @Output() services$ = new EventEmitter<Array<IBwService>>();
+  #bwServiceReq = inject(BingwaService);
+  #bwServiceTypesReq = inject(BingwaServiceType);
+  bwServices: Array<IBwService> = [];
+  bwServiceTypes: Array<IBwServiceType> = [];
   renderedServices: Array<IBwService> = [];
 
   ngOnInit(): void {
     this._getServices();
+    this._getServiceTypes();
   }
-
+  private _getServiceTypes() {
+    this.#bwServiceTypesReq
+      .getAll()
+      .pipe()
+      .subscribe({
+        next: (data) => {
+          this.bwServiceTypes = data;
+        },
+      });
+  }
   private _getServices(): void {
     this.#bwServiceReq
       .getAll()

@@ -12,7 +12,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     <ion-list>
-                        <ion-item *ngFor="let item of bwServices">
+                        <ion-item *ngFor="let item of bwServiceTypes">
                             {{item.serviceName}}
                             <ion-checkbox [indeterminate]="true" labelPlacement="start" [value]="item"
                                 (ionChange)="onBWServiceChange($event)"> </ion-checkbox>

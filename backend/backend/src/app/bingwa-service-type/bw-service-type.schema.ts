@@ -4,6 +4,7 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 export class BingwaServiceType {
   @Prop()
   service_name: string;
+
   @Prop()
   service_description: string;
 }

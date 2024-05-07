@@ -5,15 +5,18 @@ import {
   BingwaServiceTypeSchema,
 } from './bw-service-type.schema';
 import { BingwaServiceTypeController } from './bw-service-type.controller';
-import { BingwaServiceTypesService } from './bw-service-type.service';
+import { BingwaServiceTypeService } from './bw-service-type.service';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: BingwaServiceType.name, schema: BingwaServiceTypeSchema },
+      {
+        name: BingwaServiceType.name,
+        schema: BingwaServiceTypeSchema,
+      },
     ]),
   ],
   controllers: [BingwaServiceTypeController],
-  providers: [BingwaServiceTypesService],
+  providers: [BingwaServiceTypeService],
 })
 export class BingwaServiceTypeModule {}
