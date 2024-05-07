@@ -5,8 +5,6 @@ import { BingwaProvider } from '../bingwa-providers/bw-provider.schema';
 @Schema()
 export class BingwaService {
   @Prop()
-  id: string;
-  @Prop()
   service_name: string;
   @Prop()
   service_description: string;
@@ -17,6 +15,11 @@ export class BingwaService {
   service_provider_id: BingwaProvider;
   @Prop()
   price: string;
+  @Prop({ type: Object })
+  location: {
+    type: string;
+    coordinates: [number, number];
+  };
 }
 
 export const BingwaServiceSchema = SchemaFactory.createForClass(BingwaService);
