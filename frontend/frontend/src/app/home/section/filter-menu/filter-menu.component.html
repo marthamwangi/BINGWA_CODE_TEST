@@ -12,13 +12,10 @@
                 </ion-card-header>
                 <ion-card-content>
                     <ion-list>
-                        <ion-item>
-                            <ion-label>House Cleaning</ion-label>
-                            <ion-checkbox> </ion-checkbox>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>Dish Washing </ion-label>
-                            <ion-checkbox> </ion-checkbox>
+                        <ion-item *ngFor="let item of bwServices">
+                            {{item.serviceName}}
+                            <ion-checkbox [indeterminate]="true" labelPlacement="start" [value]="item"
+                                (ionChange)="onBWServiceChange($event)"> </ion-checkbox>
                         </ion-item>
                     </ion-list>
                 </ion-card-content>
@@ -31,7 +28,10 @@
                     <ion-range aria-label="Range with knob events"
                         (ionKnobMoveStart)="onDistanceIonKnobMoveStart($event)"
                         (ionKnobMoveEnd)="onDistanceIonKnobMoveEnd($event)" [dualKnobs]="true"
-                        [value]="{ lower: 0, upper: 100 }"></ion-range>
+                        [value]="{ lower: 0, upper: 100 }">
+                        <ion-label slot="start">0</ion-label>
+                        <ion-label slot="end">100</ion-label>
+                    </ion-range>
                 </ion-card-content>
             </ion-card>
             <ion-card class="filter-by-price">
@@ -41,7 +41,8 @@
                 <ion-card-content>
                     <ion-range aria-label="Range with knob events" (ionKnobMoveStart)="onPriceIonKnobMoveStart($event)"
                         (ionKnobMoveEnd)="onPriceIonKnobMoveEnd($event)" [dualKnobs]="true"
-                        [value]="{ lower: 0, upper: 100 }"></ion-range> </ion-card-content>
+                        [value]="{ lower: 0, upper: 100 }"> <ion-label slot="start">0</ion-label>
+                        <ion-label slot="end">100</ion-label></ion-range> </ion-card-content>
             </ion-card>
         </div>
         <ion-button expand="block">Apply(4 Results)</ion-button>

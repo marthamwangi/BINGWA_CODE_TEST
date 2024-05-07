@@ -14,8 +14,8 @@ import { FilterMenuComponent } from './section/filter-menu/filter-menu.component
   standalone: true,
   imports: [IonicModule, NgFor, CurrencyPipe, FilterMenuComponent],
 })
-export class HomePage implements OnInit {
-  #bwServices = inject(BingwaService);
+export class HomePage {
+  // #bwServices = inject(BingwaService);
   #router: Router = inject(Router);
   #activatedRouter: ActivatedRoute = inject(ActivatedRoute);
 
@@ -23,21 +23,9 @@ export class HomePage implements OnInit {
   bookicon = 'assets/icon/solar_home-add-bold-duotone.svg';
   filtericon = 'assets/icon/lets-icons_filter-alt-duotone-line.svg';
 
-  ngOnInit(): void {
-    this._getServices();
+  onLoadServices($event: any) {
+    this.bwServices = $event;
   }
-
-  private _getServices(): void {
-    this.#bwServices
-      .getAll()
-      .pipe()
-      .subscribe({
-        next: (data) => {
-          this.bwServices = data;
-        },
-      });
-  }
-
   onSeviceClick(id: string) {
     this.#router.navigate([id], { relativeTo: this.#activatedRouter });
   }
