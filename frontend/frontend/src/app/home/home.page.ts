@@ -1,26 +1,34 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { IonicModule, RefresherCustomEvent } from '@ionic/angular';
 
-import { DataService, Message } from '../services/data.service';
+import { BingwaService } from '../services/bw-service/data.service';
+import { NgFor } from '@angular/common';
+import { IBwService } from '../services/bw-service/data.model';
 
 @Component({
   selector: 'bt-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, NgFor],
 })
-export class HomePage {
-  private data = inject(DataService);
-  constructor() {}
+export class HomePage implements OnInit {
+  #bwServices = inject(BingwaService);
+  bwServices: Array<IBwService> = [];
 
-  refresh(ev: any) {
-    setTimeout(() => {
-      (ev as RefresherCustomEvent).detail.complete();
-    }, 3000);
+  ngOnInit(): void {
+    this._getServices();
   }
 
-  getMessages(): Message[] {
-    return this.data.getMessages();
+  private _getServices(): void {
+    this.#bwServices
+      .getAll()
+      .pipe()
+      .subscribe({
+        next: (data) => {
+          this.bwServices = data;
+          console.log('bwServices', this.#bwServices);
+        },
+      });
   }
 }
