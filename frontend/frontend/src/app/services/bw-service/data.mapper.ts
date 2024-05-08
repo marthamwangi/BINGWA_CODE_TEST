@@ -1,5 +1,3 @@
-import { inject } from '@angular/core';
-import { StorageService } from '../storage.service';
 import {
   BwProviderData,
   BwServiceData,

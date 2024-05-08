@@ -1,11 +1,12 @@
-<ion-content class="ion-padding" *ngIf="service">
+<!-- <ion-content class="ion-padding" *ngIf="service">
     <div class="back-btn"> <a routerLink="/"><img src="assets/icon/solar_round-arrow-left-bold-duotone.svg" alt="">
             <div>Go
                 Back</div>
         </a>
     </div>
-    <!-- <div> <ion-card>
-            <img loading="lazy" alt="..." src="assets/images/service.png" width="704" />
+    <div>
+        <ion-card>
+            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
             <div class="book-btn"> <ion-button>Book
                     <ion-icon slot="end" [src]=bookicon></ion-icon>
                 </ion-button></div>
@@ -33,53 +34,33 @@
                     </div>
                 </ion-card-content>
             </div>
-        </ion-card></div> -->
-    <ion-card>
-        <ion-card-header>
-            <div class="service-title">Description</div>
-        </ion-card-header>
-        <ion-card-content>
-            <div class="mb-12 "> {{service.serviceDescription}} </div>
-        </ion-card-content>
-    </ion-card>
-
-    <ion-card>
-        <ion-card-header>
-            <ion-item style="display: flex;align-items: start;">
-                <ion-avatar slot="start" style="width: 60px; height: 60px;">
-                    <img alt="Silhouette of a person's head" [src]="service.serviceProvider.avatar" />
+            <ion-item lines="inset" class=" provider-card">
+                <ion-card-header>
+                    <div class="service-title">Description</div>
+                    <div class="mb-12 "> {{service.serviceDescription}} </div>
+                </ion-card-header>
+            </ion-item>
+            <ion-item lines="none" style="display: flex;align-items: center;">
+                <ion-avatar slot="start" style="width: 120px; height: 120px;">
+                    <img alt="..." [src]="service.serviceProvider.avatar" />
                 </ion-avatar>
-                <ion-label class="provider-card">
-                    <div>
-                        <div class="mb-12">{{service.serviceProvider.fname}} {{service.serviceProvider.lname}}</div>
-                        <div class="rating-container" style="flex-direction: column; align-items: stretch;">
-                            <div class="rating">
-                                <div><img *ngFor="let rate of [1,2,3,4,5,6]"
-                                        src="assets/icon/solar--star-circle-bold-duotone.svg" alt="">
-                                </div>
-                                <div>4.3</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="badge">
-                        <img src="assets/icon/solar_medal-ribbon-star-bold-duotone.svg" alt="">
-                    </div>
+                <ion-label class="provider-title">
+                    {{service.serviceProvider.fname}}
+                    {{service.serviceProvider.lname}}
+                    <img src="assets/icon/solar_medal-ribbon-star-bold-duotone.svg" alt="">
                 </ion-label>
             </ion-item>
-        </ion-card-header>
-        <ion-card-content>
-            <div class="mb-12 ">
+            <div class="mb-24 ">
                 <ion-list>
-                    <ion-item>
+                    <ion-item lines="none">
                         <ion-thumbnail slot="start">
                             <img alt="..." src="assets/icon/ph--at-duotone.svg" />
                         </ion-thumbnail>
                         <ion-label>{{service.serviceProvider.email}}</ion-label>
                     </ion-item>
-
-                    <ion-item>
+                    <ion-item lines="none">
                         <ion-thumbnail slot="start">
-                            <img alt="..." src="assets/icon/solar--incoming-call-rounded-bold-duotone.svg" />
+                            <img alt="..." src="assets/icon/solar--phone-calling-rounded-bold-duotone.svg" />
                         </ion-thumbnail>
                         <ion-label>{{service.serviceProvider.phone}}</ion-label>
                     </ion-item>
@@ -88,11 +69,79 @@
                         <ion-thumbnail slot="start">
                             <img alt="..." src="assets/icon/solar--map-point-wave-bold-duotone.svg" />
                         </ion-thumbnail>
-                        <ion-label>1901 Thornridge Cir. Shiloh, Hawaii...</ion-label>
+                        <ion-label>{{service.serviceProvider.distance}} Km away</ion-label>
                     </ion-item>
                 </ion-list>
             </div>
-        </ion-card-content>
-    </ion-card>
+        </ion-card>
+    </div>
+</ion-content> -->
 
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button color="light" class="back-btn">
+                <a routerLink="/"><img src="assets/icon/solar--arrow-left-line-duotone.svg" alt="">
+                </a>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="ion-padding" *ngIf="service">
+    <div class="card">
+        <div class="header">
+            <div class="avater">
+                <img alt="..." [src]="service.serviceProvider.avatar" />
+            </div>
+        </div>
+        <div class="card-body mb-24">
+            <div class="card">
+                <ion-card-header>
+                    <ion-card-subtitle>
+                        <div class="service-price">{{service.price | currency:'KES'}}</div>
+                        <div><img *ngFor="let rate of [1,2,3,4,5,6]"
+                                src="assets/icon/solar--star-circle-bold-duotone.svg" alt="">
+                        </div>
+                    </ion-card-subtitle>
+                    <ion-card-title>
+                        <div class="service-title mb-12 ">{{service.serviceTitle}}</div>
+                    </ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <div class="mb-12 "> {{service.serviceDescription}} </div>
+                </ion-card-content>
+            </div>
+            <div> <ion-button class="book-btn">Book
+                    <ion-icon slot="end" [src]=bookicon></ion-icon>
+                </ion-button></div>
+            <div class="user-meta ion-text-center mb-12">
+                <div class="provider-title">
+                    {{service.serviceProvider.fname}}
+                    {{service.serviceProvider.lname}}
+                    <img src="assets/icon/solar_medal-ribbon-star-bold-duotone.svg" alt="">
+                </div>
+            </div>
+            <ion-list>
+                <ion-item lines="none">
+                    <ion-thumbnail slot="start">
+                        <img alt="..." src="assets/icon/ph--at-duotone.svg" />
+                    </ion-thumbnail>
+                    <ion-label>{{service.serviceProvider.email}}</ion-label>
+                </ion-item>
+                <ion-item lines="none">
+                    <ion-thumbnail slot="start">
+                        <img alt="..." src="assets/icon/solar--phone-calling-rounded-bold-duotone.svg" />
+                    </ion-thumbnail>
+                    <ion-label>{{service.serviceProvider.phone}}</ion-label>
+                </ion-item>
+
+                <ion-item lines="none">
+                    <ion-thumbnail slot="start">
+                        <img alt="..." src="assets/icon/solar--map-point-wave-bold-duotone.svg" />
+                    </ion-thumbnail>
+                    <ion-label>{{service.serviceProvider.distance}} Km away</ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+    </div>
 </ion-content>

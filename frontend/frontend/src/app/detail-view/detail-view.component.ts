@@ -36,7 +36,6 @@ export class DetailViewComponent implements OnInit {
       .subscribe({
         next: (s) => {
           this.service = s;
-          console.log('s', s);
         },
       });
   }

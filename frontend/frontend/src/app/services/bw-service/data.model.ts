@@ -25,7 +25,7 @@ export interface IBwProvider {
   id: string;
   longitude: number;
   latitude: number;
-  distance?: number;
+  distance: number;
 }
 
 export interface BwProviderData {
