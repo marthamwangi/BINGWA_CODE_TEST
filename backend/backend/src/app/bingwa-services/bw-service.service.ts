@@ -42,7 +42,7 @@ export class BingwaServicesService {
         .populate({
           path: 'service_provider_id',
           select:
-            'first_name last_name email_address profile_photo phone_number',
+            'first_name last_name email_address profile_photo phone_number location',
         })
         .exec();
       return data;
