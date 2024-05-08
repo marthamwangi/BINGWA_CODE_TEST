@@ -25,12 +25,11 @@
                     <ion-card-title>Distance (km)</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                    <ion-range aria-label="Range with knob events"
-                        (ionKnobMoveStart)="onDistanceIonKnobMoveStart($event)"
-                        (ionKnobMoveEnd)="onDistanceIonKnobMoveEnd($event)" [dualKnobs]="true"
-                        [value]="{ lower: 0, upper: 100 }">
-                        <ion-label slot="start">0</ion-label>
-                        <ion-label slot="end">100</ion-label>
+                    <ion-range aria-label="Range with knob events" (ionKnobMoveEnd)="onDistanceIonKnobMoveEnd($event)"
+                        [dualKnobs]="true" [value]="{ lower: minDistance, upper: maxDistance }" [pin]="true"
+                        [pinFormatter]="pinDistanceFormatter" [min]="minDistance" [max]="maxDistance">
+                        <ion-label slot="start">{{minDistance}}</ion-label>
+                        <ion-label slot="end">{{maxDistance}}</ion-label>
                     </ion-range>
                 </ion-card-content>
             </ion-card>
@@ -41,7 +40,7 @@
                 <ion-card-content>
                     <ion-range aria-label="Range with knob events" (ionKnobMoveEnd)="onPriceIonKnobChange($event)"
                         [dualKnobs]="true" [value]="{ lower: minPrice, upper: maxPrice }" [pin]="true"
-                        [pinFormatter]="pinFormatter" [min]="minPrice" [max]="maxPrice"> <ion-label
+                        [pinFormatter]="pinPriceFormatter" [min]="minPrice" [max]="maxPrice"> <ion-label
                             slot="start">{{minPrice |
                             currency:'KES'}}</ion-label>
                         <ion-label slot="end">{{maxPrice | currency:'KES'}}</ion-label></ion-range> </ion-card-content>
