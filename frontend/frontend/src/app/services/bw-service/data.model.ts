@@ -23,6 +23,9 @@ export interface IBwProvider {
   lname: string;
   avatar: string;
   id: string;
+  longitude: number;
+  latitude: number;
+  distance?: number;
 }
 
 export interface BwProviderData {
@@ -32,16 +35,14 @@ export interface BwProviderData {
   profile_photo: string;
   _id: string;
   phone_number: string;
+  location: ProximityData;
 }
 
-export interface IProximity {
-  long: number;
-  lat: number;
-  minDistance: number;
-  maxDistance: number;
+export interface ILocation {
+  latitude: number;
+  longitude: number;
 }
-
-export interface IPriceRange {
-  maxPrice: number;
-  minPrice: number;
+export interface ProximityData {
+  type: string;
+  coordinates: Array<number>;
 }

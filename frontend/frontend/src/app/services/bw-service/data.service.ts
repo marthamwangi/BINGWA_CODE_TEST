@@ -2,17 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { DeserializeBWServices, DeserializeOneBWService } from './data.mapper';
-import {
-  BwServiceData,
-  IBwService,
-  IPriceRange,
-  IProximity,
-} from './data.model';
-
+import { BwServiceData, IBwService } from './data.model';
+import { locationUtility } from '../../utilities/location.utility';
 @Injectable({
   providedIn: 'root',
 })
 export class BingwaService {
+  private _locationUtility;
+
+  constructor() {
+    this._locationUtility = locationUtility();
+  }
+
   #http: HttpClient = inject(HttpClient);
 
   #deserializeServices: DeserializeBWServices = new DeserializeBWServices();
@@ -25,7 +26,9 @@ export class BingwaService {
     return this.#http
       .get<Observable<any>>(this.#url)
       .pipe(
-        map((response: any) => this.#deserializeServices.deserialize(response))
+        map((response: any) =>
+          this.#deserializeServices.deserialize(response, this._locationUtility)
+        )
       );
   }
 
@@ -34,26 +37,16 @@ export class BingwaService {
       .get<Observable<BwServiceData>>(`${this.#url}/${_id}`)
       .pipe(
         map((response: any) =>
-          this.#deserializeSingleService.deserialize(response)
+          this.#deserializeSingleService.deserialize(
+            response,
+            this._locationUtility
+          )
         )
       );
   }
 
-  // getByFilter(
-  //   prox: IProximity,
-  //   service: string,
-  //   price: IPriceRange
-  // ): Observable<Array<any>> {
-  //   return this.#http
-  //     .get<Observable<Array<any>>>(this.#url, {
-  //       params: {
-  //         proximity: prox,
-  //         service:service,
-  //         price: price
-  //       },
-  //     })
-  //     .pipe(
-  //       map((response: any) => this.#deserializeServices.deserialize(response))
-  //     );
-  // }
+  /**
+   * Get my location
+   * Store my location iin the local storage
+   */
 }
