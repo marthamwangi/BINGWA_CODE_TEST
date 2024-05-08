@@ -24,6 +24,8 @@ export class FilterMenuComponent implements OnInit {
   renderedServices: Array<IBwService> = [];
   minPrice: number = 0;
   maxPrice: number = 0;
+  minDistance: number = 0;
+  maxDistance: number = 0;
   #filterObject: { [filterKey: string]: boolean } = {};
 
   ngOnInit(): void {
@@ -53,6 +55,12 @@ export class FilterMenuComponent implements OnInit {
           let priceArr = data.map((d) => parseInt(d.price));
           this.maxPrice = Math.max(...priceArr);
           this.minPrice = Math.min(...priceArr);
+          this.minDistance = Math.min(
+            ...data.map((d) => d.serviceProvider.distance)
+          );
+          this.maxDistance = Math.max(
+            ...data.map((d) => d.serviceProvider.distance)
+          );
         },
       });
   }
@@ -107,23 +115,35 @@ export class FilterMenuComponent implements OnInit {
    * @param $ev
    */
   onPriceIonKnobChange($ev: any) {
+    let visibleServices: Array<IBwService> = [];
     let ev = $ev.detail.value;
     let lower = ev.lower;
     let upper = ev.upper;
-    this.renderedServices = this.#bwServices.filter(
+    visibleServices = this.#bwServices.filter(
       (s) => parseInt(s.price) >= lower && parseInt(s.price) <= upper
     );
-    this.services$.emit(this.renderedServices);
-    this.results$.next(this.renderedServices.length);
+    this.services$.emit(visibleServices);
+    this.results$.next(visibleServices.length);
   }
-  pinFormatter(value: number) {
+  pinPriceFormatter(value: number) {
     return `KES ${value}`;
   }
 
-  onDistanceIonKnobMoveStart($event: any) {
-    console.log('onIonKnobMoveStart', $event.detail.value);
+  pinDistanceFormatter(value: number) {
+    return `${value}`;
   }
-  onDistanceIonKnobMoveEnd($event: any) {
-    console.log('onIonKnobMoveEnd', $event.detail.value);
+
+  onDistanceIonKnobMoveEnd($ev: any) {
+    let visibleServices: Array<IBwService> = [];
+    let ev = $ev.detail.value;
+    let lower = parseInt(ev.lower);
+    let upper = parseInt(ev.upper);
+    visibleServices = this.#bwServices.filter(
+      (s) =>
+        s.serviceProvider.distance >= lower &&
+        s.serviceProvider.distance <= upper
+    );
+    this.services$.emit(visibleServices);
+    this.results$.next(visibleServices.length);
   }
 }
