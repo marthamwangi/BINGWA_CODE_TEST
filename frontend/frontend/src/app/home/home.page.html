@@ -11,7 +11,7 @@
       <ion-card (click)="onSeviceClick(service.id)" *ngFor="let service of bwServices">
         <img loading="lazy" alt="..." src="assets/images/Image.png" />
         <ion-card-header>
-          <ion-card-title>{{service.serviceName}}
+          <ion-card-title>{{service.serviceTitle}}
             <ion-button>Book
               <ion-icon slot="end" [src]=bookicon></ion-icon>
             </ion-button>
