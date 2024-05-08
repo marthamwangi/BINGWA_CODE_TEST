@@ -11,7 +11,15 @@ export class BingwaServiceTypeService {
     private _bwServiceTypeModel: Model<BingwaServiceType>
   ) {}
 
+  /**
+   * @returns all service types
+   */
   async findAll(): Promise<BingwaServiceType[]> {
-    return this._bwServiceTypeModel.find().exec();
+    try {
+      let data = await this._bwServiceTypeModel.find().exec();
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

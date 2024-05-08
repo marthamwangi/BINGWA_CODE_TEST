@@ -37,7 +37,8 @@ export class BingwaServicesService {
         .findOne({ _id: id })
         .populate({
           path: 'service_provider_id',
-          select: 'first_name last_name email_address profile_photo',
+          select:
+            'first_name last_name email_address profile_photo phone_number',
         })
         .exec();
       return data;
