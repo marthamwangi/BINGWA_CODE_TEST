@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  BingwaServiceType,
-  BingwaServiceTypeSchema,
-} from './bw-service-type.schema';
+import { BingwaServiceTypeSchema } from './bw-service-type.schema';
 import { BingwaServiceTypeController } from './bw-service-type.controller';
 import { BingwaServiceTypeService } from './bw-service-type.service';
+import { TYPES_COLLECTION_NAME } from '../constants';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       {
-        name: BingwaServiceType.name,
+        name: TYPES_COLLECTION_NAME,
         schema: BingwaServiceTypeSchema,
       },
     ]),

@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { InjectConnection, InjectModel } from '@nestjs/mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 import { BingwaServiceType } from './bw-service-type.schema';
-import { Connection, Model } from 'mongoose';
+import { Model } from 'mongoose';
+import { TYPES_COLLECTION_NAME } from '../constants';
 
 @Injectable()
 export class BingwaServiceTypeService {
   constructor(
-    @InjectModel(BingwaServiceType.name)
+    @InjectModel(TYPES_COLLECTION_NAME)
     private _bwServiceTypeModel: Model<BingwaServiceType>
   ) {}
 

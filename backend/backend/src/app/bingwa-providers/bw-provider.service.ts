@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { BingwaProvider } from './bw-provider.schema';
 import { Model } from 'mongoose';
+import { PROVIDERS_COLLECTION_NAME } from '../constants';
 export interface IProximity {
   long: number;
   lat: number;
@@ -11,7 +12,7 @@ export interface IProximity {
 @Injectable()
 export class BingwaProvidersService {
   constructor(
-    @InjectModel(BingwaProvider.name)
+    @InjectModel(PROVIDERS_COLLECTION_NAME)
     private bwProviderModel: Model<BingwaProvider>
   ) {}
 
@@ -26,17 +27,19 @@ export class BingwaProvidersService {
    */
 
   async findProximity(proximity: IProximity) {
-    return this.bwProviderModel.find({
-      location: {
-        $near: {
-          $geometry: {
-            type: 'Point',
-            coordinates: [proximity.long, proximity.lat],
+    return this.bwProviderModel
+      .find({
+        location: {
+          $near: {
+            $geometry: {
+              type: 'Point',
+              coordinates: [proximity.long, proximity.lat],
+            },
+            $minDistance: proximity.minDistance,
+            $maxDistance: proximity.maxDistance,
           },
-          $minDistance: proximity.minDistance,
-          $maxDistance: proximity.maxDistance,
         },
-      },
-    });
+      })
+      .exec();
   }
 }

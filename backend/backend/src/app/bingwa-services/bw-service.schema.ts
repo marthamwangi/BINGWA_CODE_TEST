@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose from 'mongoose';
-import { BingwaProvider } from '../bingwa-providers/bw-provider.schema';
 import { BingwaServiceType } from '../bingwa-service-type/bw-service-type.schema';
+import { BingwaProvider } from '../bingwa-providers/bw-provider.schema';
+import { PROVIDERS_COLLECTION_NAME, TYPES_COLLECTION_NAME } from '../constants';
 
 @Schema()
 export class BingwaService {
@@ -13,13 +14,13 @@ export class BingwaService {
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'BingwaProvider',
+    ref: PROVIDERS_COLLECTION_NAME,
   })
   service_provider_id: BingwaProvider;
 
   @Prop({
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'BingwaServiceType',
+    ref: TYPES_COLLECTION_NAME,
   })
   service_type_id: BingwaServiceType;
 
