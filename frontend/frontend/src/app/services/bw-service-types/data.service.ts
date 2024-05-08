@@ -12,7 +12,7 @@ export class BingwaServiceType {
   #deserializeServices: DeserializeBWServiceTypes =
     new DeserializeBWServiceTypes();
 
-  #url: string = 'http://localhost:3000/api/service-types';
+  #url: string = 'http://localhost:3000/api/servicetypes';
 
   getAll(): Observable<Array<any>> {
     return this.#http

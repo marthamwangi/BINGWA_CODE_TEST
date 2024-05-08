@@ -31,11 +31,7 @@ export class BingwaService {
 
   getOne(_id: string): Observable<IBwService> {
     return this.#http
-      .get<Observable<BwServiceData>>(this.#url, {
-        params: {
-          id: _id,
-        },
-      })
+      .get<Observable<BwServiceData>>(`${this.#url}/${_id}`)
       .pipe(
         map((response: any) =>
           this.#deserializeSingleService.deserialize(response)

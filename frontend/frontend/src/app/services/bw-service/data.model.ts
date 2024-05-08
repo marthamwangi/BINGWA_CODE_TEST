@@ -1,17 +1,37 @@
 export interface IBwService {
   id: string;
-  serviceName: string;
+  serviceTitle: string;
   serviceDescription: string;
-  serviceProvider: string;
+  serviceProvider: IBwProvider;
+  serviceType: string;
   price: string;
 }
 
 export interface BwServiceData {
   _id: string;
-  service_name: string;
+  service_title: string;
   service_description: string;
-  service_provider: string;
+  service_provider_id: BwProviderData;
+  service_type_id: string;
   price: string;
+}
+
+export interface IBwProvider {
+  phone: string;
+  email: string;
+  fname: string;
+  lname: string;
+  avatar: string;
+  id: string;
+}
+
+export interface BwProviderData {
+  email_address: string;
+  first_name: string;
+  last_name: string;
+  profile_photo: string;
+  _id: string;
+  phone_number: string;
 }
 
 export interface IProximity {
