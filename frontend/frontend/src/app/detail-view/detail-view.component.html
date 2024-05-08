@@ -1,1 +1,98 @@
-<p>detail-view works!</p>
+<ion-content class="ion-padding" *ngIf="service">
+    <div class="back-btn"> <a routerLink="/"><img src="assets/icon/solar_round-arrow-left-bold-duotone.svg" alt="">
+            <div>Go
+                Back</div>
+        </a>
+    </div>
+    <!-- <div> <ion-card>
+            <img loading="lazy" alt="..." src="assets/images/service.png" width="704" />
+            <div class="book-btn"> <ion-button>Book
+                    <ion-icon slot="end" [src]=bookicon></ion-icon>
+                </ion-button></div>
+            <div class="card-float">
+                <ion-card-header>
+                    <ion-card-title>
+                        <div>Home>Cleaning </div>
+                        <div class="service-title">{{service.serviceTitle}}</div>
+                    </ion-card-title>
+                    <ion-card-subtitle class="service-price">{{service.price | currency:'KES'}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    <div class="duration-container">
+                        <div class="duration-text">Duration:</div>
+                        <div class="duration">01h</div>
+                    </div>
+                    <div class="rating-container">
+                        <div class="rating-text">Rating:</div>
+                        <div class="rating">
+                            <div><img *ngFor="let rate of [1,2,3,4,5,6]"
+                                    src="assets/icon/solar--star-circle-bold-duotone.svg" alt="">
+                            </div>
+                            <div>4.3</div>
+                        </div>
+                    </div>
+                </ion-card-content>
+            </div>
+        </ion-card></div> -->
+    <ion-card>
+        <ion-card-header>
+            <div class="service-title">Description</div>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="mb-12 "> {{service.serviceDescription}} </div>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-item style="display: flex;align-items: start;">
+                <ion-avatar slot="start" style="width: 60px; height: 60px;">
+                    <img alt="Silhouette of a person's head" [src]="service.serviceProvider.avatar" />
+                </ion-avatar>
+                <ion-label class="provider-card">
+                    <div>
+                        <div class="mb-12">{{service.serviceProvider.fname}} {{service.serviceProvider.lname}}</div>
+                        <div class="rating-container" style="flex-direction: column; align-items: stretch;">
+                            <div class="rating">
+                                <div><img *ngFor="let rate of [1,2,3,4,5,6]"
+                                        src="assets/icon/solar--star-circle-bold-duotone.svg" alt="">
+                                </div>
+                                <div>4.3</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="badge">
+                        <img src="assets/icon/solar_medal-ribbon-star-bold-duotone.svg" alt="">
+                    </div>
+                </ion-label>
+            </ion-item>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="mb-12 ">
+                <ion-list>
+                    <ion-item>
+                        <ion-thumbnail slot="start">
+                            <img alt="..." src="assets/icon/ph--at-duotone.svg" />
+                        </ion-thumbnail>
+                        <ion-label>{{service.serviceProvider.email}}</ion-label>
+                    </ion-item>
+
+                    <ion-item>
+                        <ion-thumbnail slot="start">
+                            <img alt="..." src="assets/icon/solar--incoming-call-rounded-bold-duotone.svg" />
+                        </ion-thumbnail>
+                        <ion-label>{{service.serviceProvider.phone}}</ion-label>
+                    </ion-item>
+
+                    <ion-item lines="none">
+                        <ion-thumbnail slot="start">
+                            <img alt="..." src="assets/icon/solar--map-point-wave-bold-duotone.svg" />
+                        </ion-thumbnail>
+                        <ion-label>1901 Thornridge Cir. Shiloh, Hawaii...</ion-label>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>
