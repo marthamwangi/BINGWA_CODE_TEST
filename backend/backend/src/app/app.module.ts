@@ -6,7 +6,9 @@ import { BingwaServiceTypeModule } from './bingwa-service-type/bw-service-type.m
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/bingwa-local'),
+    MongooseModule.forRoot(
+      'mongodb+srv://martyturing:fnENzdl99e5v1vDT@bingwacluster.f2atza4.mongodb.net/bingwa-oonline'
+    ),
     BingwaProviderModule,
     BingwaServiceModule,
     BingwaServiceTypeModule,
