@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { BingwaService } from './bw-service.schema';
 import { Model } from 'mongoose';
 import { SERVICES_COLLECTION_NAME } from '../constants';
+import { IBwService } from './dto/create-service-dto';
+import { UpdateServicetDto } from './dto/update-service-dto';
 @Injectable()
 export class BingwaServicesService {
   constructor(
@@ -15,9 +17,8 @@ export class BingwaServicesService {
    * @returns all services
    */
   async findAll(): Promise<BingwaService[]> {
-    // return this.bwServiceModel.find().exec();
     try {
-      let data = await this.bwServiceModel
+      const data = await this.bwServiceModel
         .find()
         .populate({
           path: 'service_provider_id',
@@ -37,7 +38,7 @@ export class BingwaServicesService {
    */
   async findOne(id: string): Promise<BingwaService> {
     try {
-      let data = await this.bwServiceModel
+      const data = await this.bwServiceModel
         .findOne({ _id: id })
         .populate({
           path: 'service_provider_id',
@@ -46,6 +47,25 @@ export class BingwaServicesService {
         })
         .exec();
       return data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async findOneAndUpdate(
+    _id: string,
+    data: UpdateServicetDto
+  ): Promise<BingwaService> {
+    try {
+      const existingService = await this.bwServiceModel
+        .findByIdAndUpdate(_id, data, {
+          new: true,
+        })
+        .exec();
+      if (!existingService) {
+        throw new NotFoundException(`Service #${_id} not found`);
+      }
+      return existingService;
     } catch (error) {
       console.log(error);
     }
