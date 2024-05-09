@@ -21,11 +21,9 @@ export class BingwaService {
   #deserializeSingleService: DeserializeOneBWService =
     new DeserializeOneBWService();
 
-  #url: string = SERVICES_URL;
-
   getAll(): Observable<Array<any>> {
     return this.#http
-      .get<Observable<any>>(this.#url)
+      .get<Observable<any>>(SERVICES_URL)
       .pipe(
         map((response: any) =>
           this.#deserializeServices.deserialize(response, this._locationUtility)
@@ -35,7 +33,7 @@ export class BingwaService {
 
   getOne(_id: string): Observable<IBwService> {
     return this.#http
-      .get<Observable<BwServiceData>>(`${this.#url}/${_id}`)
+      .get<Observable<BwServiceData>>(SERVICES_URL + `/${_id}`)
       .pipe(
         map((response: any) =>
           this.#deserializeSingleService.deserialize(

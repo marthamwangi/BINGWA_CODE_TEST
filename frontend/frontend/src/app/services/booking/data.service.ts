@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { SERVICES_URL } from '../../constants/constants';
+import { BOOK_SERVICE, SERVICES_URL } from '../../constants/constants';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class BingwaBookingService {
   #http: HttpClient = inject(HttpClient);
-  #url: string = SERVICES_URL;
-
   update(id: string, booking: any): Observable<any> {
-    return this.#http.put(`${this.#url}/booking/${id}`, { booking });
+    return this.#http.put(`${BOOK_SERVICE}/${id}`, { booking });
   }
 }

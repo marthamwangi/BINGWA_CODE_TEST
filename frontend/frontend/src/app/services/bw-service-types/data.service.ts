@@ -13,11 +13,9 @@ export class BingwaServiceType {
   #deserializeServices: DeserializeBWServiceTypes =
     new DeserializeBWServiceTypes();
 
-  #url: string = SERVICE_TYPES_URL;
-
   getAll(): Observable<Array<any>> {
     return this.#http
-      .get<Observable<any>>(this.#url)
+      .get<Observable<any>>(SERVICE_TYPES_URL)
       .pipe(
         map((response: any) => this.#deserializeServices.deserialize(response))
       );
