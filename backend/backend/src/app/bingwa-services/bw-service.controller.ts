@@ -25,17 +25,14 @@ export class BingwaServicesController {
     return this.bwServiceService.findOne(id);
   }
 
-  @Put(':id')
-  async findOneAndUpdate(
+  @Put('booking/:id')
+  async bookOne(
     @Res() response,
     @Param('id') id: string,
-    @Body() data: UpdateServicetDto
+    @Body() booking: UpdateServicetDto
   ) {
     try {
-      const existingService = await this.bwServiceService.findOneAndUpdate(
-        id,
-        data
-      );
+      const existingService = await this.bwServiceService.bookOne(id, booking);
       if (!existingService) {
         return response
           .status(HttpStatus.NOT_FOUND)

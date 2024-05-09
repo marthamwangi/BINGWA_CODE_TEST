@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { BingwaService } from './bw-service.schema';
 import { Model } from 'mongoose';
 import { SERVICES_COLLECTION_NAME } from '../constants';
-import { IBwService } from './dto/create-service-dto';
+import { IBooking, IBwService } from './dto/create-service-dto';
 import { UpdateServicetDto } from './dto/update-service-dto';
 @Injectable()
 export class BingwaServicesService {
@@ -51,21 +51,21 @@ export class BingwaServicesService {
       console.log(error);
     }
   }
-
-  async findOneAndUpdate(
-    _id: string,
-    data: UpdateServicetDto
-  ): Promise<BingwaService> {
+  /**
+   * bookOne
+   * @param _id
+   * @param data
+   * @returns
+   */
+  async bookOne(_id: string, booking: UpdateServicetDto): Promise<string> {
     try {
       const existingService = await this.bwServiceModel
-        .findByIdAndUpdate(_id, data, {
-          new: true,
-        })
+        .updateOne({ _id }, { $addToSet: { booking } })
         .exec();
       if (!existingService) {
         throw new NotFoundException(`Service #${_id} not found`);
       }
-      return existingService;
+      return `' Updated service ${existingService}`;
     } catch (error) {
       console.log(error);
     }
