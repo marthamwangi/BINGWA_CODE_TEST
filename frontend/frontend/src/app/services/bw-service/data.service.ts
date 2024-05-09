@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { DeserializeBWServices, DeserializeOneBWService } from './data.mapper';
 import { BwServiceData, IBwService } from './data.model';
 import { locationUtility } from '../../utilities/location.utility';
+import { SERVICES_URL } from '../../constants/constants';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +21,7 @@ export class BingwaService {
   #deserializeSingleService: DeserializeOneBWService =
     new DeserializeOneBWService();
 
-  #url: string = 'http://localhost:3000/api/services';
+  #url: string = SERVICES_URL;
 
   getAll(): Observable<Array<any>> {
     return this.#http

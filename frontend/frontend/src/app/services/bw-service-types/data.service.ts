@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { DeserializeBWServiceTypes } from './data.mapper';
+import { SERVICE_TYPES_URL } from '../../constants/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class BingwaServiceType {
   #deserializeServices: DeserializeBWServiceTypes =
     new DeserializeBWServiceTypes();
 
-  #url: string = 'http://localhost:3000/api/servicetypes';
+  #url: string = SERVICE_TYPES_URL;
 
   getAll(): Observable<Array<any>> {
     return this.#http
