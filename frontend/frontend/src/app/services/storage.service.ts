@@ -44,7 +44,6 @@ export class StorageService {
     let location: ILocation = { latitude: 0, longitude: 0 };
     this._coordinates$.subscribe({
       next: (l) => (location = l),
-      complete: () => console.info('complete', location),
     });
     return location;
   }
