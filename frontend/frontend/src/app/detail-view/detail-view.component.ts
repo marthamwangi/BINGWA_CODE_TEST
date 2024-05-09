@@ -5,11 +5,19 @@ import { Observable, firstValueFrom, map } from 'rxjs';
 import { IBwService } from '../services/bw-service/data.model';
 import { IonicModule } from '@ionic/angular';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { BookingComponent } from '../booking/booking.component';
 
 @Component({
   selector: 'bw-detail-view',
   standalone: true,
-  imports: [IonicModule, NgIf, CurrencyPipe, NgFor, RouterLink],
+  imports: [
+    IonicModule,
+    NgIf,
+    CurrencyPipe,
+    NgFor,
+    RouterLink,
+    BookingComponent,
+  ],
   templateUrl: './detail-view.component.html',
   styleUrl: './detail-view.component.scss',
 })
@@ -18,6 +26,9 @@ export class DetailViewComponent implements OnInit {
   #bwServiceReq = inject(BingwaService);
   bookicon = 'assets/icon/solar_home-add-bold-duotone.svg';
   service!: IBwService;
+  showBooking: boolean = false;
+  showToast$: boolean = false;
+  showToastMessage$: string = 'empty';
 
   ngOnInit(): void {
     this._getParam();
@@ -38,5 +49,14 @@ export class DetailViewComponent implements OnInit {
           this.service = s;
         },
       });
+  }
+
+  toggleShowBooking(): void {
+    this.showBooking = !this.showBooking;
+  }
+
+  toggleToast($event: any) {
+    this.showToast$ = $event.show;
+    this.showToastMessage$ = $event.message;
   }
 }

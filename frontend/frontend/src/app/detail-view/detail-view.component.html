@@ -32,9 +32,12 @@
                     <div class="mb-12 "> {{service.serviceDescription}} </div>
                 </ion-card-content>
             </div>
-            <div> <ion-button class="book-btn">Book
+            <div>
+                <ion-button [id]="'open-modal-'+service.id" expand="block" class="book-btn"
+                    (click)="toggleShowBooking()">Book
                     <ion-icon slot="end" [src]=bookicon></ion-icon>
-                </ion-button></div>
+                </ion-button>
+            </div>
             <div class="user-meta ion-text-center mb-12">
                 <div class="provider-title">
                     {{service.serviceProvider.fname}}
@@ -65,4 +68,7 @@
             </ion-list>
         </div>
     </div>
+    <bw-booking *ngIf="showBooking" [id]="service.id" (showBookingToast$)="toggleToast($event)"
+        (dismissModal$)="toggleShowBooking()"></bw-booking>
 </ion-content>
+<ion-toast [isOpen]="showToast$" [message]="showToastMessage$" [duration]="5000"></ion-toast>
