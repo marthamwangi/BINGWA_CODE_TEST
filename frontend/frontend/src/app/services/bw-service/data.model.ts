@@ -5,6 +5,7 @@ export interface IBwService {
   serviceProvider: IBwProvider;
   serviceType: string;
   price: string;
+  distance: number;
 }
 
 export interface BwServiceData {
@@ -25,7 +26,6 @@ export interface IBwProvider {
   id: string;
   longitude: number;
   latitude: number;
-  distance: number;
 }
 
 export interface BwProviderData {

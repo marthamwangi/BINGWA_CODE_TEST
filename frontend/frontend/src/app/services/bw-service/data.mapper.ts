@@ -14,12 +14,14 @@ export class DeserializeBWServices {
       id: entity._id,
       serviceTitle: entity.service_title,
       serviceDescription: entity.service_description,
-      serviceProvider: fnDeserializeProvider(
-        entity.service_provider_id,
-        location
-      ),
+      serviceProvider: fnDeserializeProvider(entity.service_provider_id),
       serviceType: entity.service_type_id,
       price: entity.price,
+      distance: getDistanceFromLatLonInKm(
+        entity.service_provider_id.location.coordinates[1],
+        entity.service_provider_id.location.coordinates[0],
+        location
+      ),
     }));
   }
 }
@@ -30,20 +32,19 @@ export class DeserializeOneBWService {
       id: entity._id,
       serviceTitle: entity.service_title,
       serviceDescription: entity.service_description,
-      serviceProvider: fnDeserializeProvider(
-        entity.service_provider_id,
-        location
-      ),
+      serviceProvider: fnDeserializeProvider(entity.service_provider_id),
       serviceType: entity.service_type_id,
       price: entity.price,
+      distance: getDistanceFromLatLonInKm(
+        entity.service_provider_id.location.coordinates[1],
+        entity.service_provider_id.location.coordinates[0],
+        location
+      ),
     };
   }
 }
 
-function fnDeserializeProvider(
-  p: BwProviderData,
-  location: Function
-): IBwProvider {
+function fnDeserializeProvider(p: BwProviderData): IBwProvider {
   return {
     id: p._id,
     fname: p.first_name,
@@ -53,11 +54,6 @@ function fnDeserializeProvider(
     phone: p.phone_number,
     longitude: p.location.coordinates[0],
     latitude: p.location.coordinates[1],
-    distance: getDistanceFromLatLonInKm(
-      p.location.coordinates[1],
-      p.location.coordinates[0],
-      location
-    ),
   };
 }
 
