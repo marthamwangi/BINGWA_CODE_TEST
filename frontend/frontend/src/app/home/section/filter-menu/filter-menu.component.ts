@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { IBwService } from '../../../services/bw-service/data.model';
-import { AsyncPipe, CurrencyPipe, NgFor } from '@angular/common';
+import { AsyncPipe, CurrencyPipe, NgFor, NgIf } from '@angular/common';
 import { BingwaService } from '../../../services/bw-service/data.service';
 import { BingwaServiceType } from '../../../services/bw-service-types/data.service';
 import { IBwServiceType } from '../../../services/bw-service-types/data.model';
@@ -10,9 +10,8 @@ import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'bw-filter-menu',
   standalone: true,
-  imports: [IonicModule, NgFor, AsyncPipe, CurrencyPipe],
+  imports: [IonicModule, NgFor, AsyncPipe, CurrencyPipe, NgIf],
   templateUrl: './filter-menu.component.html',
-  styleUrl: './filter-menu.component.css',
 })
 export class FilterMenuComponent implements OnInit {
   @Output() services$ = new EventEmitter<Array<IBwService>>();
@@ -26,7 +25,13 @@ export class FilterMenuComponent implements OnInit {
   maxPrice: number = 0;
   minDistance: number = 0;
   maxDistance: number = 0;
-  #filterObject: { [filterKey: string]: boolean } = {};
+  #filterObject: {
+    serviceType: { [filterKey: string]: boolean };
+    price?: { lower: number; upper: number };
+    distance?: { lower: number; upper: number };
+  } = {
+    serviceType: {},
+  };
 
   ngOnInit(): void {
     this._getServices();
@@ -55,12 +60,8 @@ export class FilterMenuComponent implements OnInit {
           let priceArr = data.map((d) => parseInt(d.price));
           this.maxPrice = Math.max(...priceArr);
           this.minPrice = Math.min(...priceArr);
-          this.minDistance = Math.min(
-            ...data.map((d) => d.serviceProvider.distance)
-          );
-          this.maxDistance = Math.max(
-            ...data.map((d) => d.serviceProvider.distance)
-          );
+          this.minDistance = Math.min(...data.map((d) => d.distance));
+          this.maxDistance = Math.max(...data.map((d) => d.distance));
         },
       });
   }
@@ -70,37 +71,99 @@ export class FilterMenuComponent implements OnInit {
    * @param $event
    */
   onBWServiceTypeChange($event: any, serviceType: string) {
-    this.#filterObject[serviceType] = $event.detail.checked;
+    this.#filterObject.serviceType[serviceType] = $event.detail.checked;
     this._applyFilters();
   }
 
   private _applyFilters(): void {
-    let visibleServices: Array<IBwService> = [];
-
     /**
      * check if the filter object is empty or not
      */
-    const hasOnFilter =
-      Object.values(this.#filterObject).filter(
-        (keyProperty) => keyProperty === true
-      ).length !== 0;
-
-    if (hasOnFilter) {
+    const availableFilters = [];
+    for (const key in this.#filterObject) {
       /**
-       * there is atleast one applied filet
+       * check if there is a service type that is on for filtering
        */
-      for (const filterKey in this.#filterObject) {
-        if (this.#filterObject[filterKey]) {
-          visibleServices = [
-            ...visibleServices,
-            ...this.#bwServices.filter(
-              (service) => service.serviceType === filterKey
-            ),
-          ];
+      if (key === 'serviceType') {
+        if (
+          Object.values(this.#filterObject.serviceType).filter(
+            (keyProperty) => keyProperty === true
+          ).length !== 0
+        ) {
+          availableFilters.push(key);
         }
       }
-    } else {
-      visibleServices = this.#bwServices;
+
+      /**
+       * check if there is a price that is on for filtering
+       */
+      if (key === 'price') {
+        if (
+          this.#filterObject.price?.lower !== this.minPrice ||
+          this.#filterObject.price.upper !== this.maxPrice
+        ) {
+          availableFilters.push(key);
+        }
+      }
+
+      /**
+       * check if there is a distance for filtering
+       */
+      if (key === 'distance') {
+        if (
+          this.#filterObject.distance?.lower !== this.minDistance ||
+          this.#filterObject.distance.upper !== this.maxDistance
+        ) {
+          availableFilters.push(key);
+        }
+      }
+    }
+
+    let visibleServices: Array<IBwService> = this.#bwServices;
+    if (availableFilters.length) {
+      for (const filterKey in this.#filterObject) {
+        /**
+         * filter out services
+         */
+        if (availableFilters.includes('serviceType')) {
+          const visibleServiceKeys = Object.entries(
+            this.#filterObject.serviceType
+          )
+            .filter((entry) => entry[1] === true)
+            .map((entry) => entry[0]);
+          visibleServices = visibleServices.filter((service) =>
+            visibleServiceKeys.includes(service.serviceType)
+          );
+        }
+
+        /**
+         * filter out price
+         */
+        if (availableFilters.includes('price')) {
+          if (this.#filterObject.price) {
+            visibleServices = this.#minMaxFilter(
+              visibleServices,
+              this.#filterObject.price?.lower,
+              this.#filterObject.price?.upper,
+              'price'
+            ) as Array<IBwService>;
+          }
+        }
+
+        /**
+         * filter out distance
+         */
+        if (availableFilters.includes('distance')) {
+          if (this.#filterObject.distance) {
+            visibleServices = this.#minMaxFilter(
+              visibleServices,
+              this.#filterObject.distance?.lower,
+              this.#filterObject.distance?.upper,
+              'distance'
+            ) as Array<IBwService>;
+          }
+        }
+      }
     }
 
     /**
@@ -111,20 +174,37 @@ export class FilterMenuComponent implements OnInit {
   }
 
   /**
+   *
+   * @param services
+   * @param min
+   * @param max
+   * @param filterByKey
+   * @returns
+   *
+   * A shared utility function for filtering out items within a range
+   */
+  #minMaxFilter(
+    services: Array<{ [key: string]: any }>,
+    min: number,
+    max: number,
+    filterByKey: string
+  ): Array<{ [key: string]: any }> {
+    return services.filter((service) => {
+      const fieldValue = parseInt(service[filterByKey]);
+      return fieldValue >= min && fieldValue <= max;
+    });
+  }
+
+  /**
    * Get the price on KnobEnd event
    * @param $ev
    */
   onPriceIonKnobChange($ev: any) {
-    let visibleServices: Array<IBwService> = [];
-    let ev = $ev.detail.value;
-    let lower = ev.lower;
-    let upper = ev.upper;
-    visibleServices = this.#bwServices.filter(
-      (s) => parseInt(s.price) >= lower && parseInt(s.price) <= upper
-    );
-    this.services$.emit(visibleServices);
-    this.results$.next(visibleServices.length);
+    const ev = $ev.detail.value;
+    this.#filterObject['price'] = { lower: ev.lower, upper: ev.upper };
+    this._applyFilters();
   }
+
   pinPriceFormatter(value: number) {
     return `KES ${value}`;
   }
@@ -134,16 +214,8 @@ export class FilterMenuComponent implements OnInit {
   }
 
   onDistanceIonKnobMoveEnd($ev: any) {
-    let visibleServices: Array<IBwService> = [];
-    let ev = $ev.detail.value;
-    let lower = parseInt(ev.lower);
-    let upper = parseInt(ev.upper);
-    visibleServices = this.#bwServices.filter(
-      (s) =>
-        s.serviceProvider.distance >= lower &&
-        s.serviceProvider.distance <= upper
-    );
-    this.services$.emit(visibleServices);
-    this.results$.next(visibleServices.length);
+    const ev = $ev.detail.value;
+    this.#filterObject['distance'] = { lower: ev.lower, upper: ev.upper };
+    this._applyFilters();
   }
 }
