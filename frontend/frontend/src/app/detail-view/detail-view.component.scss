@@ -1,6 +1,9 @@
 .book-btn {
-  width: 95%;
+  width: 50%;
   margin-inline: auto;
+  @media (max-width: 575.98px) {
+    width: 95%;
+  }
 }
 .service-price {
   font-weight: 700;
@@ -29,8 +32,8 @@
   }
 }
 ion-content {
-  --background: url(../../assets/images/service.png) no-repeat top center/cover
-    var(--ion-color-primary-contrast);
+  --background: url('http://dummyimage.com/1024x1024.png/3880ff/ffffff&text=Bingwa Services')
+    no-repeat center/ cover var(--ion-color-primary-contrast);
   position: relative;
   height: 100%;
   width: 100%;
