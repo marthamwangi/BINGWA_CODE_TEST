@@ -69,7 +69,6 @@ function getDistanceFromLatLonInKm(
   /**
    * Read user location from Local Storage
    */
-  // const storageService: StorageService = new StorageService();
   const { latitude, longitude } = location();
   const r = 6371; // km
   const p = Math.PI / 180;
