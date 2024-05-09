@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { BingwaServiceType } from '../bingwa-service-type/bw-service-type.schema';
 import { BingwaProvider } from '../bingwa-providers/bw-provider.schema';
 import { PROVIDERS_COLLECTION_NAME, TYPES_COLLECTION_NAME } from '../constants';
+import { IBooking } from './dto/create-service-dto';
 
 @Schema()
 export class BingwaService {
@@ -26,6 +27,9 @@ export class BingwaService {
 
   @Prop()
   price: string;
+
+  @Prop({ type: Array<IBooking> })
+  booking: Array<IBooking>;
 }
 
 export const BingwaServiceSchema = SchemaFactory.createForClass(BingwaService);
