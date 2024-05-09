@@ -8,11 +8,11 @@
       </ion-buttons>
     </div>
     <div class="cards">
-      <ion-card (click)="onSeviceClick(service.id)" *ngFor="let service of bwServices">
+      <ion-card *ngFor="let service of bwServices" (click)="onSeviceClick(service.id)">
         <img loading="lazy" alt="..." src="assets/images/Image.png" />
         <ion-card-header>
           <ion-card-title>{{service.serviceTitle}}
-            <ion-button>Book
+            <ion-button expand="block" (click)="onBooking($event, service.id)">Book
               <ion-icon slot="end" [src]=bookicon></ion-icon>
             </ion-button>
           </ion-card-title>
@@ -33,3 +33,8 @@
     </div>
   </ion-content>
 </div>
+
+<bw-booking (showBookingToast$)="toggleToast($event)" (dismissModal$)="serviceId = ''" *ngIf="serviceId"
+  [id]="serviceId" [modalId]="serviceId"></bw-booking>
+
+<ion-toast [isOpen]="showToast$" [message]="showToastMessage$" [duration]="5000"></ion-toast>
