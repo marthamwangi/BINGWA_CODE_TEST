@@ -1,0 +1,26 @@
+services:
+  nx:
+    container_name: bw-app
+    build:
+      context: . # Build from the current directory (root of NX workspace)
+    ports:
+      - "4200:4200"  # Expose frontend port
+      - "3000:3000"  # Expose backend port
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URL=mongodb+srv://martyturing:fnENzdl99e5v1vDT@bingwacluster.f2atza4.mongodb.net/bingwa-oonline
+    networks:
+      - server-network
+    
+  mongodb:
+    image: mongo:7.0.9
+    container_name: bw-mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=martyturing
+      - MONGO_INITDB_ROOT_PASSWORD=fnENzdl99e5v1vDT
+    networks:
+      - server-network
+    restart: unless-stopped
+networks:
+  server-network:
