@@ -12,10 +12,10 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN ls
-RUN pwd
-
 RUN npm install -g @angular/cli@17
+
 RUN npm add --global nx@latest
+
 EXPOSE 4200 3000 
+
 CMD  ["npm","run","start"]
