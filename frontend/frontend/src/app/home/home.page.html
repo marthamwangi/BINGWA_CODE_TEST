@@ -10,7 +10,7 @@
     <div class="cards">
       <ion-card *ngFor="let service of bwServices" (click)="onSeviceClick(service.id)">
         <img loading="lazy" alt="..."
-          [src]="'http://dummyimage.com/1024x700.png/'+randomColor+'/ffffff&text='+service.serviceTitle" />
+          [src]="'http://dummyimage.com/1024x700.png/'+getRandomColor()+'/ffffff&text='+service.serviceTitle" />
         <ion-card-header>
           <ion-card-title>
             <div class="service-heading ion-text-nowrap">{{service.serviceTitle}}</div>

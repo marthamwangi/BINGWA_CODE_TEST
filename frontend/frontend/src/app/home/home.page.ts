@@ -28,11 +28,13 @@ export class HomePage {
   showToast$: boolean = false;
   showToastMessage$: string = 'empty';
   serviceId: string = '';
-  randomColor = Math.floor(Math.random() * 16777215).toString(16);
+  getRandomColor() {
+    var color = Math.floor(Math.random() * 16777215).toString(16);
+    return color;
+  }
 
   onLoadServices($event: any) {
     this.bwServices = $event;
-    console.log('random colors', this.randomColor);
   }
   onSeviceClick(id: string) {
     this.#router.navigate([id]);
