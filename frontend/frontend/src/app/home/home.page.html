@@ -2,7 +2,7 @@
 <div class="ion-page" id="main-content">
   <ion-content>
     <div class="filter-search">
-      <ion-searchbar placeholder="Cleaning services, 1901 Thornridge Cir. Westlands..."></ion-searchbar>
+      <ion-searchbar placeholder="Cleaning services, 1901 Thornridge Cir. Westlands..." disabled></ion-searchbar>
       <ion-buttons slot="start">
         <ion-menu-button> <img [src]="filtericon" alt=""></ion-menu-button>
       </ion-buttons>
@@ -10,9 +10,10 @@
     <div class="cards">
       <ion-card *ngFor="let service of bwServices" (click)="onSeviceClick(service.id)">
         <img loading="lazy" alt="..."
-          [src]="'http://dummyimage.com/1024x700.png/3880ff/ffffff&text='+service.serviceTitle" />
+          [src]="'http://dummyimage.com/1024x700.png/'+randomColor+'/ffffff&text='+service.serviceTitle" />
         <ion-card-header>
-          <ion-card-title>{{service.serviceTitle}}
+          <ion-card-title>
+            <div class="service-heading ion-text-nowrap">{{service.serviceTitle}}</div>
             <ion-button expand="block" (click)="onBooking($event, service.id)">Book
               <ion-icon slot="end" [src]=bookicon></ion-icon>
             </ion-button>
@@ -21,12 +22,16 @@
               Service</span></ion-card-subtitle>
         </ion-card-header>
         <ion-card-content style="display: flex; flex-direction: column; justify-content: space-between;">
-          <div class="mb-12 "> {{service.serviceDescription}} </div>
-          <div class="rating">
-            <img alt="..." src="assets/icon/solar--map-point-wave-bold-duotone.svg" />
-            <div class="distance-text">{{service.distance}} Km away</div>
-          </div>
+          <div class="mb-12 service-description "> {{service.serviceDescription}} </div>
         </ion-card-content>
+        <ion-row class="card-footer">
+          <ion-col>
+            <div class="distance">
+              <img alt="..." src="assets/icon/solar--map-point-wave-bold-duotone.svg" />
+              <div class="distance-text">{{service.distance}} Km away</div>
+            </div>
+          </ion-col>
+        </ion-row>
       </ion-card>
     </div>
   </ion-content>

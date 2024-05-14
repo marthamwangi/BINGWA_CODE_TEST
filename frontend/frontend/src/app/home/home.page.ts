@@ -27,10 +27,12 @@ export class HomePage {
   filtericon = 'assets/icon/lets-icons_filter-alt-duotone-line.svg';
   showToast$: boolean = false;
   showToastMessage$: string = 'empty';
-  public serviceId: string = '';
+  serviceId: string = '';
+  randomColor = Math.floor(Math.random() * 16777215).toString(16);
 
   onLoadServices($event: any) {
     this.bwServices = $event;
+    console.log('random colors', this.randomColor);
   }
   onSeviceClick(id: string) {
     this.#router.navigate([id]);

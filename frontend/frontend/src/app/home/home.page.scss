@@ -5,15 +5,35 @@
   column-gap: 16px;
   justify-content: center;
   ion-card {
+    border-radius: 10px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.08), 0 0 6px rgba(0, 0, 0, 0.05);
+    transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+      0.3s box-shadow,
+      0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
     cursor: pointer;
     max-width: 18%;
+    @media (max-width: 1200.98px) {
+      min-width: 25%;
+    }
     @media (max-width: 798.98px) {
       min-width: 95%;
+    }
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
     }
     ion-card-title {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      .service-heading {
+        max-width: 18em;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        padding: 0 0.5em;
+        text-align: left;
+        margin-right: 4px;
+      }
     }
   }
   .per-servicel {
@@ -27,7 +47,7 @@
   ion-button {
     text-transform: capitalize;
   }
-  .rating {
+  .distance {
     img {
       width: 32px;
       height: 32px;
@@ -52,7 +72,7 @@
     width: 85%;
   }
   ion-buttons {
-    background: #5f60b9;
+    background: #3880ff;
     box-shadow: 0px 24px 50px rgba(0, 0, 0, 0.06);
     border-radius: 8px;
     margin-right: 12px;
@@ -65,4 +85,12 @@
 }
 .sc-ion-searchbar-md-h {
   --box-shadow: 0px 24px 50px rgba(95, 96, 185, 0.15);
+}
+
+.service-description {
+  display: -webkit-box !important;
+  -webkit-line-clamp: 3 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  margin-bottom: 24px;
 }
